@@ -134,7 +134,7 @@ pipeline {
         stage ("Tag & Push to DockerHub") {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'docker') {
+                    withDockerRegistry(credentialsId: 'docker-cred') {
                         sh "docker tag amazon-prime 1632000/amazon-prime:latest "
                         sh "docker push 1632000/amazon-prime:latest "
                     }
@@ -144,7 +144,7 @@ pipeline {
         stage('Docker Scout Image') {
             steps {
                 script{
-                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
+                   withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker'){
                        sh 'docker-scout quickview 1632000/amazon-prime:latest'
                        sh 'docker-scout cves 1632000/amazon-prime:latest'
                        sh 'docker-scout recommendations 1632000/amazon-prime:latest'
